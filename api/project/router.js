@@ -1,5 +1,6 @@
 const express = require('express')
 const Project = require('./model')
+const { checkName, checkCompleted} = require('./middleware')
 
 const router = express.Router()
 
@@ -12,13 +13,7 @@ router.get('/', async (req, res, next) => {
     }
 })
 
-router.post('/', async (req, res, next) => {
-    if (!req.body.project_name) {
-        next({ status: 400, message: 'missing project_name field' })
-    }
-    if (req.body.project_completed === 1) {
-        req.body.project_completed = true
-    }
+router.post('/', checkName, checkCompleted, async (req, res, next) => {
     try {
         const project = await Project.insertProject(req.body)
         res.status(201).json(project)

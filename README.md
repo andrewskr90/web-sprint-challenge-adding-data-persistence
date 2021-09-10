@@ -74,11 +74,11 @@ Build an API inside the `api` folder with endpoints for:
 - [ ] `[GET] /api/resources`
   - Example of response body: `[{"resource_id":1,"resource_name":"foo","resource_description":null}]`
 
-- [ ] `[POST] /api/projects`
+- [x] `[POST] /api/projects`
   - Even though `project_completed` is stored as an integer, the API uses booleans when interacting with the client
   - Example of response body: `{"project_id":1,"project_name":"bar","project_description":null,"project_completed":false}`
 
-- [ ] `[GET] /api/projects`
+- [x] `[GET] /api/projects`
   - Even though `project_completed` is stored as an integer, the API uses booleans when interacting with the client
   - Example of response body: `[{"project_id":1,"project_name":"bar","project_description":null,"project_completed":false}]`
 
@@ -110,6 +110,10 @@ Build an API inside the `api` folder with endpoints for:
 Be prepared to demonstrate your understanding of this week's concepts by answering questions on the following topics. You might prepare by writing down your own answers before hand.
 
 1. Explain the difference between Relational Databases and SQL.
+  Relational databases are data tables, usually in the form of rows corresponding to multiple data points. SQL is a query language used to access data tables as well as join them together.
 2. Why do tables need a Primary Key?
+  Primary keys are a fool proof way of marking each data submission as unique. With a primary key, we will always be able to accurately reference a particular piece of data.
 3. What is the name given to a table column that references the Primary Key on another table?
+  A column that references another tables primary key is named a foreign key.
 4. What do we need in order to have a _many to many_ relationship between two tables?
+  In order to have a many to many relationship between two tables, a certain row on one table could correspond to many rows on the other table, and vice versa. Books can have multiple authors, and authors can write multiple books.

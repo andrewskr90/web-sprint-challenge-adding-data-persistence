@@ -1,4 +1,5 @@
 const express = require('express')
+const { checkDescription, checkNotes } = require('./middleware')
 const Task = require('./model')
 
 const router = express.Router()
@@ -12,13 +13,7 @@ router.get('/', async (req, res, next) => {
     }
 })
 
-router.post('/', async (req, res, next) => {
-    if (!req.body.task_description) {
-        next({ status: 400, message: 'missing task_description field'})
-    }
-    if (!req.body.task_notes === '') {
-        req.body.task_notes = null
-    }
+router.post('/', checkDescription, checkNotes, async (req, res, next) => {
     try {
         const newTask = await Task.insertTask(req.body)
         res.status(201).json(newTask)

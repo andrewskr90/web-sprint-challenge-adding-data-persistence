@@ -1,4 +1,5 @@
 const express = require('express')
+const { checkName, checkDescription } = require('./middleware')
 const Resource = require('./model')
 
 const router = express.Router()
@@ -12,13 +13,7 @@ router.get('/', async (req, res, next) => {
     }
 })
 
-router.post('/', async (req, res, next) => {
-    if (!req.body.resource_name) {
-        next({ status: 400, message: 'missing resource_name field'})
-    }
-    if (!req.body.resource_description === '') {
-        req.body.resource_description = null
-    }
+router.post('/', checkName, checkDescription, async (req, res, next) => {
     try {
         const newResource = await Resource.insertResource(req.body)
         res.status(201).json(newResource)
