@@ -23,7 +23,19 @@ async function getProjects() {
 }
 
 async function insertProject(requestBody) {
-    const newProject = await db('projects').insert(requestBody)
+    const newProjectId = await db('projects').insert(requestBody)
+    const trueOrFalse = (completedOrNot) => {
+        if (completedOrNot) {
+            return completedOrNot
+        } else {
+            return false
+        }
+    }
+    const newProject = {
+        project_id: newProjectId[0],
+        ...requestBody,
+        project_completed: trueOrFalse(requestBody.project_completed)
+    }
     return newProject
 }
 
