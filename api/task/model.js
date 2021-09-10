@@ -32,6 +32,32 @@ async function getTasks() {
     return tasksArray
 }
 
+async function insertTask(requestBody) {
+    const newTaskId = await db('tasks').insert(requestBody)
+    const nullOrNot = (notesValue) => {
+        if (notesValue) {
+            return notesValue
+        } else {
+            return null
+        }
+    }
+    const trueOrFalse = (completedOrNot) => {
+        if (completedOrNot) {
+            return completedOrNot
+        } else {
+            return false
+        }
+    }
+    const newTask = {
+        task_id: newTaskId[0],
+        ...requestBody,
+        task_notes: nullOrNot(requestBody.task_notes),
+        task_completed: trueOrFalse(requestBody.task_completed)
+    }
+    return newTask
+}
+
 module.exports = {
-    getTasks
+    getTasks,
+    insertTask
 }

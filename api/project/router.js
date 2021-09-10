@@ -16,6 +16,9 @@ router.post('/', async (req, res, next) => {
     if (!req.body.project_name) {
         next({ status: 400, message: 'missing project_name field' })
     }
+    if (req.body.project_completed === 1) {
+        req.body.project_completed = true
+    }
     try {
         const project = await Project.insertProject(req.body)
         res.status(201).json(project)
