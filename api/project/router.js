@@ -4,8 +4,8 @@ const Project = require('./model')
 const router = express.Router()
 
 router.get('/', async (req, res, next) => {
-    const projects = await Project.getProjects()
     try {
+        const projects = await Project.getProjects()
         res.status(200).json(projects)
     } catch (err) {
         next(err)
@@ -16,8 +16,8 @@ router.post('/', async (req, res, next) => {
     if (!req.body.project_name) {
         next({ status: 400, message: 'missing project_name field' })
     }
-    const project = await Project.insertProject(req.body)
     try {
+        const project = await Project.insertProject(req.body)
         res.status(201).json(project)
     } catch (err) {
         next(err)
